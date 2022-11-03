@@ -40,6 +40,7 @@ class Grafo:
         infinito = 9999999
         path = []
 
+
         for node in nos_nao_vistos:
             menor_dist[node] = infinito
         menor_dist[inicio] = 0
@@ -70,7 +71,6 @@ class Grafo:
         if menor_dist[fim] != infinito:
             print('Menor distancia é', str(menor_dist[fim]))
             #print('E o caminho é', str(path))
-            print('\n')
             return path
 
 #le o json
@@ -101,12 +101,15 @@ def haversine(lon1, lat1, lon2, lat2):
 
 g = Grafo(1000)
 
+print('Digite a distância MÁXIMA entre 2 cidades para se criar uma aresta:')
+in_dist = int(input())
+
 #calcula a distancia entre as cidades e cria os grafos
-for i in range(999):
+for i in range(1000):
     for j in range(1000):
         dist = haversine(list_longitude[i], list_latitude[i], list_longitude[j], list_latitude[j])
         #distancia radial
-        if(dist<500):
+        if(dist<in_dist):
             g.AddEdges(i, j, dist)
 
 #pede a cidade de partida do usuario
@@ -133,12 +136,13 @@ while True:
         destino = input()
 
 
-teste = g.DijkstraShortestPath(index1, index2)
+caminho = g.DijkstraShortestPath(index1, index2)
+
 
 #necessario para imprimir o caminho
 list_teste = []
-for i in range(len(teste)):
-    aux = teste[i]
+for i in range(len(caminho)):
+    aux = caminho[i]
     nome = list_nomes[aux]
     list_teste.append(nome)
 
